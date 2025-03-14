@@ -1,0 +1,24 @@
+﻿This document outlines the architecture of the banking system.
+
+
+User Authentication
+        Authentication is implemented using a User class, which handles user information and access control. There is a login system which utilizes function pointers for different authentication types. Also a role-based access control which determines user permissions
+
+
+Account Management
+Account operations are in an Account base class, supporting multiple account types inheritance and polymorphism. Custom operators are defined for transactions and derived classes include savings, checkings, and business accounts
+
+
+Transaction History
+The system maintains a Transaction class that records account activity and supports polymorphic logging. Virtual functions ensure extensibility for future transaction types and operator overloading enables formatted logging.  
+
+
+Implementation
+* The account class is a base class with derived types for different accounts
+* The transaction class uses virtual methods for transaction logging
+* Overloads += and -= operators for deposit and withdrawal
+* Overloads << operator for logging transaction history
+* Function pointers for authentication
+* Lambda functions for efficient account searches and operations
+* Implements password hashing
+* Uses smart pointers to manage memory safely
