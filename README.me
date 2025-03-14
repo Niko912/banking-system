@@ -1,0 +1,98 @@
+#  Banking System Project
+
+##  Description
+
+This project simulates a **basic banking system** implemented in **C++**. It demonstrates advanced programming concepts including:
+
+- **Object-Oriented Programming (OOP)**: Inheritance, Polymorphism, and Encapsulation.
+- **Advanced C++ Techniques**: Operator Overloading, Virtual Functions, and Smart Pointers.
+- **Core Functionalities**:  
+  - User Authentication  
+  - Account Management (Savings, Checking, Business)  
+  - Transaction History Management  
+
+The system is modular and scalable, designed to be easy to extend and maintain.
+
+---
+
+## Folder Structure
+
+```
+banking-system/
+├── docs/               # Documentation files (design documents, diagrams)
+├── src/                # Source code (.cpp files)
+├── include/            # Header files (.h files)
+├── tests/              # Unit tests and test cases
+├── build/              # Compiled binaries and object files (ignored in git)
+├── scripts/            # Automation scripts for builds, tests, etc.
+├── .github/            # GitHub Actions workflows (CI/CD)
+├── README.md           # Project overview and instructions
+├── LICENSE             # License information
+├── CMakeLists.txt      # CMake configuration file for building the project
+└── .gitignore          # Files and directories to ignore in Git
+```
+
+---
+
+## Features
+
+ User Registration and Authentication  
+ Support for Multiple Account Types (Savings, Checking, Business)  
+ Transaction Processing (Deposit, Withdraw)  
+ Transaction History Logging  
+ Use of Inheritance and Polymorphism for Account Types  
+ Operator Overloading for Transactions (`+=`, `-=`)  
+ Extendable Class Hierarchy for Future Account Types
+
+
+---
+
+Sample Code Snippet
+
+```cpp
+#include <iostream>
+#include <string>
+#include <map>
+#include <vector>
+#include <memory>
+#include <ctime>
+
+// User class handling authentication
+class User {
+protected:
+    std::string username;
+    std::string hashedPassword;
+public:
+    User(std::string uname, std::string password);
+    virtual bool authenticate(std::string passwordAttempt) const;
+    virtual ~User() {}
+};
+
+// Placeholder function definitions
+User::User(std::string uname, std::string password)
+    : username(uname), hashedPassword(password) {}
+
+bool User::authenticate(std::string passwordAttempt) const {
+    return passwordAttempt == hashedPassword;
+}
+
+// Base Account class
+class Account {
+protected:
+    double balance;
+public:
+    Account(double initialBalance);
+    virtual void deposit(double amount);
+    virtual bool withdraw(double amount);
+    virtual void displayBalance() const;
+    virtual ~Account() {}
+
+    // Operator overloading
+    Account& operator+=(double amount); // Deposit
+    Account& operator-=(double amount); // Withdraw
+};
+```
+
+Nikolas Toma 
+[GitHub Profile](https://github.com/yourusername)  
+
