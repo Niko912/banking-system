@@ -1,0 +1,75 @@
+﻿Overview
+        This document provides a description of class hierarchy design for handling different account types within the banking system. I will go over the relationships between the base and derived classes, and I will show the use of inheritance and polymorphism as well as operator overloading and virtual functions in the code.
+
+
+Class Hierarchy
+1. “Account” an abstract base class”
+        It is the base class for all account types. It defines common data members and functions related to account operations. The main responsibilities of this class is to store and manage the account operations, provide interfaces for depositing, withdrawing and displaying balances. Also it enables polymorphism by defining virtual functions.
+
+
+class Account {
+protected:
+    double balance;
+    std::string accountNumber;
+public:
+    Account(std::string accNum, double initialBalance);
+    virtual void deposit(double amount) = 0;
+    virtual bool withdraw(double amount) = 0;
+    virtual void displayBalance() const = 0;
+    virtual ~Account() {}
+
+
+    Account& operator+=(double amount); 
+    Account& operator-=(double amount);
+};
+
+
+2. “SavingsAccount” a derived class.
+This class represents a savings account with interest application capability. The key responsibilities are providing a way to apply interest to the users account and it enforces withdrawal limitations base on business rules.
+
+
+class SavingsAccount : public Account {
+private:
+    double interestRate;
+public:
+    SavingsAccount(std::string accNum, double initialBalance, double rate);
+    void deposit(double amount) override;
+    bool withdraw(double amount) override;
+    void displayBalance() const override;
+    void applyInterest();
+};
+
+
+3. “CheckingAccount” is a derived class.
+This class represents a checking account that allows unlimited withdrawals and transactions as well as support for overdrafts. The key responsibilities of this class is to provide functionality for overdraft protection.
+
+
+class CheckingAccount : public Account {
+private:
+    double overdraftLimit;
+public:
+    CheckingAccount(std::string accNum, double initialBalance, double overdraft);
+    void deposit(double amount) override;
+    bool withdraw(double amount) override;
+    void displayBalance() const override;
+};
+
+
+4. “BusinessAccount” derived class
+This class represents a business account with higher transaction limits, allows use of payroll and invoicing.
+
+
+class BusinessAccount : public Account {
+private:
+    double transactionLimit;
+    double feePerTransaction;
+public:
+    BusinessAccount(std::string accNum, double initialBalance, double limit, double fee);
+    void deposit(double amount) override;
+    bool withdraw(double amount) override;
+    void displayBalance() const override;
+};
+
+
+Relationships and Hierarchy
+        Account is an abstract base class that defines the common interface, SavingsAccount, CheckingAccount, and BusinessAccount inherit from Account. All derived classes override virtual functions defined in the base class. Polymorphism allows handling different account types using base class pointers or references in functions processing. Alos overloaded operators are implemented in the base class and used polymorphically in derived classes.
